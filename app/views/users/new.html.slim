@@ -1,0 +1,17 @@
+- if @user.errors.present?
+  ul#error_explanation  
+    - @user.errors.full_messages.each do |message|
+      li.alert.alert-danger 
+        = message
+.row 
+  .col-md-6.offset-md-3 
+    = form_with model: @user, local: true do |f|
+      .form-group
+        = f.text_field :email, class: "form-control", placeholder: "メールアドレス"
+      .form-group
+        = f.password_field :password, class: "form-control", placeholder: "パスワード"
+      .form-group
+        = f.password_field :password_confirmation, class: "form-control", placeholder: "パスワード確認"
+      = f.submit "登録", class: "btn btn-primary btn-block rounded-pill"
+      
+  

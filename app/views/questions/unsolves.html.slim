@@ -1,0 +1,6 @@
+h1 未解決一覧
+
+- @unsolves_questions.each do |uq|
+  .row.text-center 
+    .col-md-3.offset-md-3.border-bottom
+      = link_to uq.title, question_path(uq)

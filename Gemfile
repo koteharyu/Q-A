@@ -39,6 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim-rails'
 gem 'html2slim'
 gem 'bootstrap'
+gem 'bcrypt', '~> 3.1.7'
 
 
 group :development, :test do

@@ -1,0 +1,6 @@
+h1 解決済みの質問一覧
+
+- @solves_questions.each do |sq|
+  .row.text-center
+    .col-md-6.offset-md-3.border-bottom
+      = link_to sq.title, question_path(sq)
