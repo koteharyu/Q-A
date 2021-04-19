@@ -2,15 +2,18 @@ class QuestionsController < ApplicationController
   before_action :login_required, only: [:new, :create, :edit, :update, :destroy]
   
   def index
-    @questions = Question.all
+    @q = Question.all.ransack(params[:q])
+    @questions = @q.result
   end
 
   def solves
-    @solves_questions = Question.where(solved: true)
+    @q = Question.where(solved: true).ransack(params[:q])
+    @solves_questions = @q.result
   end
 
   def unsolves
-    @unsolves_questions = Question.where(solved: false)
+    @q = Question.where(solved: false).ransack(params[:q])
+    @unsolves_questions = @q.result
   end
 
   def new

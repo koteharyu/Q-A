@@ -1,6 +1,16 @@
 h1 未解決一覧
 
+= render partial: "index"
+
+= render partial: "search", locales: {q: @q}
+
 - @unsolves_questions.each do |uq|
   .row.text-center 
-    .col-md-3.offset-md-3.border-bottom
-      = link_to uq.title, question_path(uq)
+    .col-md-6.offset-md-3.border-bottom
+      .col-md-2 
+        / - if uq.user.avatar.present?
+        /   = image_tag uq.user.avatar
+        / - else 
+        /   = image_tag "default_avatar.jpeg"
+      .col-md-4
+        = link_to uq.title, question_path(uq)

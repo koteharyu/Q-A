@@ -1,13 +1,16 @@
-.row.text-center
-  .col-md-6.offset-md-3 
-    = link_to "全て", questions_path, class: "btn btn-outline-secondary"
-    = link_to "未解決", unsolves_path, class: "btn btn-outline-secondary"
-    = link_to "解決済み", solves_path, class: "btn btn-outline-secondary"
+= render partial: "index"
+
+= render partial: "search"
 
 .row.text-center
   .col-md-6.offset-md-3 
     = link_to "質問する", new_question_path, class: "btn btn-primary"
   - @questions.each do |question|
     .col-md-6.offset-md-3.border-bottom
-      / = question.user.avatar
-      = link_to question.title, question
+      .col-md-2
+        - if question.user.avatar.attached?
+          = image_tag question.user.avatar, class: "user-avatar"
+        - else 
+          = image_tag "default_avatar.jpeg", class: "user-avatar"
+      .col-md-4
+        = link_to question.title, question
