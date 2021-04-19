@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.avatar = nil
     if @user.save
       session[:user_id] = @user.id
       redirect_to questions_path, notice: "Q-Aへようこそ"
@@ -18,8 +19,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to questions_path, notice: "ユーザー情報の更新に成功しました"
+    else
+      render :edit
+    end
+  end
+
+
   private
     def user_params
-      params.require(:user).permit(:email, :admin, :password, :password_confirmation)
+      params.require(:user).permit(:nickname, :email, :admin, :password, :password_confirmation, :avatar)
     end
+
 end

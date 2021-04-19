@@ -40,6 +40,9 @@ gem 'slim-rails'
 gem 'html2slim'
 gem 'bootstrap'
 gem 'bcrypt', '~> 3.1.7'
+gem 'byebug'
+gem 'kaminari'
+gem 'ransack'
 
 
 group :development, :test do

@@ -1,0 +1,8 @@
+.row 
+  .col-md-6.offset-md-3
+    = form_with scope: :session, local: true do |f|
+      .form-group 
+        = f.text_field :email, class: "form-control", placeholder: "メールアドレス"
+      .form-group 
+        = f.password_field :password, class: "form-control", placeholder: "パスワード"
+      = f.submit "ログイン", class: "btn btn-primary btn-block rounded-pill"

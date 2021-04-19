@@ -1,6 +1,17 @@
 h1 解決済みの質問一覧
 
+= render partial: "index"
+
+= render partial: "search", locales: {q: @q}
+
+
 - @solves_questions.each do |sq|
   .row.text-center
     .col-md-6.offset-md-3.border-bottom
-      = link_to sq.title, question_path(sq)
+      .col-md-2 
+        / - if sq.user.avatar.present?
+        /   = image_tag sq.user.avatar
+        / - else 
+        /   = image_tag "default_avatar.jpeg"
+      .col-md-4
+        = link_to sq.title, question_path(sq)

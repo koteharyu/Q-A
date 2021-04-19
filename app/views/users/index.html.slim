@@ -1,4 +1,8 @@
 .row 
   - @users.each do |user|
-    .col-md-6.offset-md-3 
+    .col-md-6.offset-md-3.border-bottom
+      - if user.avatar.attached?
+        = image_tag user.avatar, class: "user-avatar"
+      - else 
+        = image_tag "default_avatar.jpeg", class: "user-avatar"
       = user.email
