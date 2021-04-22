@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :login_required, only: [:index, :edit, :show, :update, :destroy]
   def index
-    @users = User.all
+    @users = User.all.page(params[:page])
   end
 
   def new

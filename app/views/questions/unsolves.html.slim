@@ -1,16 +1,19 @@
-h1 未解決一覧
-
 = render partial: "index"
 
 = render partial: "search", locales: {q: @q}
 
-- @unsolves_questions.each do |uq|
-  .row.text-center 
-    .col-md-6.offset-md-3.border-bottom
-      .col-md-2 
-        / - if uq.user.avatar.present?
-        /   = image_tag uq.user.avatar
-        / - else 
-        /   = image_tag "default_avatar.jpeg"
-      .col-md-4
-        = link_to uq.title, question_path(uq)
+table.table.table-hover.text-center.mt-3 
+  tbody 
+    - @unsolves_questions.each do |uq|
+      tr 
+        td
+          / - if uq.user.avatar.present?
+          /   = image_tag uq.user.avatar, class: "user-avatar"
+          / - else 
+          /   = image_tag "default_avatar.jpeg", class: "user-avatar"
+        td= link_to uq.title, question_path(uq)
+
+.row
+  .col-md-6.offset-md-3.mt-3.mx-auto
+    = paginate @unsolves_questions
+    = page_entries_info @unsolves_questions

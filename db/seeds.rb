@@ -20,3 +20,13 @@ User.create!(
     body: "これはテストシードで作成したものです。ナンバー#{n}"
   )
 end
+
+50.times do |i|
+  User.create(
+    email: "テスト#{i}@example.com",
+    nickname: "テスト#{i}",
+    password: "password",
+    password_digest: "password",
+    admin: false
+  )
+end
