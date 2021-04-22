@@ -1,17 +1,23 @@
 class AnswersController < ApplicationController
   def create
-    question = Question.find(params[:question_id])
-    @answer = question.answers.build(answer_params)
-    @answer.user_id = current_user.id
+    @answer = current_user.answers.new(answer_params)
     if @answer.save
-      redirect_to question, notice: "回答しました"
+      # AMailer.with(answer: @answer).creation_answer.delivery_now
+      # answers = Answer.where(question_id: @answer.question_id)
+      # user_ids = answers.pluck(:user_id)
+      # users = User.where(id: user_ids)
+      # users.each do |user|
+      #   next if user == current_user
+      #   AMailer.with(user: user, answer: @answer).creation_other_answers.deliver_now
+      # end
+      redirect_to question_path(@answer.question_id), notice: "回答しました"
     else
-      redirect_back(fallback_location: root_path)
+      redirect_to question_path(question.id)
     end
   end
 
   private
     def answer_params
-      params.require(:answer).permit(:body)
+      params.require(:answer).permit(:body).merge(question_id: params[:question_id])
     end
 end

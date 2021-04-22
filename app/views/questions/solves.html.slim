@@ -5,13 +5,18 @@ h1 解決済みの質問一覧
 = render partial: "search", locales: {q: @q}
 
 
-- @solves_questions.each do |sq|
-  .row.text-center
-    .col-md-6.offset-md-3.border-bottom
-      .col-md-2 
-        / - if sq.user.avatar.present?
-        /   = image_tag sq.user.avatar
-        / - else 
-        /   = image_tag "default_avatar.jpeg"
-      .col-md-4
-        = link_to sq.title, question_path(sq)
+table.table.table-hover.text-center.mt-3 
+  tbody 
+    - @solves_questions.each do |sq|
+      tr 
+        td
+          / - if sq.user.avatar.present?
+          /   = image_tag sq.user.avatar, class: "user-avatar"
+          / - else 
+          /   = image_tag "default_avatar.jpeg", class: "user-avatar"
+        td= link_to sq.title, question_path(sq)
+
+.row
+  .col-md-6.offset-md-3.mt-3.mx-auto
+    = paginate @solves_questions
+    = page_entries_info @solves_questions

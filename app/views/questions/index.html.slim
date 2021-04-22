@@ -2,15 +2,20 @@
 
 = render partial: "search"
 
-.row.text-center
-  .col-md-6.offset-md-3 
-    = link_to "質問する", new_question_path, class: "btn btn-primary"
-  - @questions.each do |question|
-    .col-md-6.offset-md-3.border-bottom
-      .col-md-2
-        - if question.user.avatar.attached?
-          = image_tag question.user.avatar, class: "user-avatar"
-        - else 
-          = image_tag "default_avatar.jpeg", class: "user-avatar"
-      .col-md-4
-        = link_to question.title, question
+
+table.table.table-hover.text-center.mt-3
+  tbody 
+    - @questions.each do |question|
+      tr 
+        td
+          - if question.user.avatar.attached?
+            = image_tag question.user.avatar, class: "user-avatar"
+          - else 
+            = image_tag "default_avatar.jpeg", class: "user-avatar"
+        td= question.title
+        td= simple_format(question.body)
+
+.row
+  .col-md-6.offset-md-3.mt-3.mx-auto
+    = paginate @questions
+    = page_entries_info @questions

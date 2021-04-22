@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     @q = User.all.ransack(params[:q])
-    @users = @q.result
+    @users = @q.result.page(params[:page])
   end
 
   def destroy
@@ -11,9 +11,5 @@ class Admin::UsersController < ApplicationController
     @user.destroy!
     redirect_to admin_users_path, notice: "#{@user.email}を削除しました"
   end
-
-  private
-  def are_you_admin?
-    redirect_to root_path unless current_user.admin?
-  end
+  
 end

@@ -1,16 +1,19 @@
 = render partial: 'search'
 
-.row.text-center.border-right
-  .col-3
-    .sidebar_fixed
-    = link_to "ユーザー一覧", admin_users_path 
-    = link_to "質問一覧", admin_questions_path 
-
-.row 
-  .col-md-8.offset-md-2
+table.table.table-hover.text-center.mt-3
+  tbody 
     - @questions.each do |question|
-      - if question.user.avatar.attached?
-        = image_tag question.user.avatar, class: "user-avara"
-      - else
-        = image_tag "default_avatar.jpeg", class: "user-avatar"
-      = question.title
+      tr 
+        td
+          - if question.user.avatar.attached?
+            = image_tag question.user.avatar, class: "user-avatar"
+          - else 
+            = image_tag "default_avatar.jpeg", class: "user-avatar"
+        td= question.title
+        td= simple_format(question.body)
+        td= link_to "削除", admin_question_path(question), method: :delete, data: {confirm: "削除してもいいですか？"}, class: "btn btn-danger"
+
+.row
+  .col-md-6.offset-md-3.mt-3.mx-auto
+    = paginate @questions
+    = page_entries_info @questions

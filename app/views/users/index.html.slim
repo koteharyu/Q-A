@@ -1,8 +1,16 @@
+
+table.table.table-hover.text-center
+  tbody 
+    - @users.each do |user|
+      tr 
+        td
+          - if user.avatar.attached?
+            = image_tag user.avatar, class: "user-avatar"
+          - else
+            = image_tag "default_avatar.jpeg", class: "user-avatar"
+        td= user.email
+
 .row 
-  - @users.each do |user|
-    .col-md-6.offset-md-3.border-bottom
-      - if user.avatar.attached?
-        = image_tag user.avatar, class: "user-avatar"
-      - else 
-        = image_tag "default_avatar.jpeg", class: "user-avatar"
-      = user.email
+  .col-md-6.offset-md-3
+    = paginate @users
+    = page_entries_info @users

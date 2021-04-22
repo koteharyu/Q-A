@@ -1,14 +1,21 @@
 = render partial: "search"
 
-
-.row 
-  .col-2.p-0 
-    = render partial: "shared/sidebar"
-  .col-9.offset-1
+/ .row 
+/   .col-2
+/     = render partial: "shared/sidebar"
+table.table.table-hobver.text-center
+  tbody 
     - @users.each do |user|
-      - if user.avatar.attached?
-        = image_tag user.avatar, class: "user-avatar"
-      - else 
-        = image_tag "default_avatar.jpeg", class: "user-avatar"
-      = user.email
-      = link_to "削除", admin_user_path(user),  method: :delete, class: "btn btn-danger", data: {confirm: "削除しますか？"}
+      tr
+        td
+          - if user.avatar.attached?
+            = image_tag user.avatar, class: "user-avatar mr-2"
+          - else 
+            = image_tag "default_avatar.jpeg", class: "user-avatar mr-2"
+        td= user.email
+        td= link_to "削除", admin_user_path(user),  method: :delete, class: "btn btn-danger ml-2", data: {confirm: "削除しますか？"}
+
+.row.mt-3
+  .col-md-6.offset-md-3
+    = paginate @users
+    = page_entries_info @users
